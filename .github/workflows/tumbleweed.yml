@@ -1,0 +1,49 @@
+name: Build Tumbleweed
+
+on:
+  push:
+    branches:
+      - tumbleweed
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+
+    name: AppImage tumbleweed
+    runs-on: ubuntu-latest
+    env:
+      ARCH: x86_64
+      DIST: tumbleweed
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Build AppImage in Docker
+        run: bash -ex ci/build-in-docker.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: AppImage build
+          path: |
+            AppImageUpdate*.AppImage*
+            appimageupdatetool*.AppImage*
+
+  upload:
+    name: Create release and upload artifacts
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+      - name: Inspect directory after downloading artifacts
+        run: ls -alFR
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Tumbleweed Release
+          body: All of these files are built automatically using Github Action and not signed. Install it with your own risk!
+          files: |
+            AppImageUpdate*.AppImage*
+            appimageupdatetool*.AppImage*
