@@ -86,7 +86,7 @@ patch_appimage linuxdeploy*.AppImage
 for app in appimageupdatetool AppImageUpdate; do
     find "$app".AppDir/
 
-    export UPD_INFO="gh-releases-zsync|AppImage|AppImageUpdate|continuous|$app-*$ARCH.AppImage.zsync"
+    export UPD_INFO="gh-releases-zsync|gagahpangeran|AppImageUpdate|latest|$app-*$ARCH.AppImage.zsync"
 
     if [ "$app" == "AppImageUpdate" ]; then export EXTRA_FLAGS=("--plugin" "qt"); fi
 
