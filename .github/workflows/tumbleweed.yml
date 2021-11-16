@@ -42,6 +42,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: tumbleweed
           name: Tumbleweed Release
           body: All of these files are built automatically using Github Action and not signed. Install it with your own risk!
           files: |
