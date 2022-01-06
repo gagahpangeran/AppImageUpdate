@@ -346,6 +346,8 @@ namespace appimage {
                             int downloadUrlLines = 0;
                             int matchingUrls = 0;
 
+			    issueStatusMessage(response.error.message);
+
                             // continue only if HTTP status is good
                             if (response.status_code >= 200 && response.status_code < 300) {
                                 // in contrary to the original implementation, instead of converting wildcards into
