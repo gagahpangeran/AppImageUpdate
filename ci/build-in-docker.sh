@@ -13,7 +13,7 @@ repo_root="$(readlink -f "$(dirname "$0")"/..)"
 
 # needed to keep user ID in and outside Docker in sync to be able to write to workspace directory
 image=appimageupdate-build:"$DIST"-"$ARCH"
-dockerfile=Dockerfile."$ARCH"
+dockerfile=Dockerfile."$DIST"-"$ARCH"
 
 if [ ! -f "$repo_root"/ci/"$dockerfile" ]; then
     echo "Error: $dockerfile could not be found"
